@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    image: biola/cas_test
+    depends_on:
+      - memcached
+      - mongodb
+    environment:
+      CAS_LOGGING_LEVEL_ORG_APEREO_CAS: INFO
+      GATEWAY_COOKIE_DOMAIN: localhost
+      MEMCACHED_HOSTS: memcached:11211
+      MEMCACHED_ENCRYPTION_KEY: PWAFqlljzsWCxlAZ
+      MEMCACHED_SIGNING_KEY: kSkg6HAzn3s6VKO6X5NllkHRs7M9nA0lhllHoHoBTmvF_RnH8cGdfBemZrm7o1xeGSpaIbVNIf9E7hufqAvE3A
+      SERVICE_REGISTRY_LOCATION: file:///etc/cas/config/services-staging
+      TGC_ENCRYPTION_KEY: 9ZuiehOmrC9ez4ON1ZgESvckzAyKLLNKHytODjZ1Yyk
+      TGC_SIGNING_KEY: ZMqjf8MFCVKQwEZ_mMKd3pi2Itu1yPB1GaumeG3eehsCjEUl2drC1VJIFGO5E9V3tY0QE8xSra9YIQ5zCOAe5A
+      TROGDIR_HOST: mongodb://mongodb:27017/trogdir
+      WEBFLOW_ENCRYPTION_KEY: BlvukgreiFdiAVIL
+      WEBFLOW_SIGNING_KEY: QCfvOshIuqRUtxRA_DHBrisYfm7L7MwyIot_b7jJ8SQDjpVgLgS4nTr_2KGbG4B9EoZV2zbGzKVUPXuyzMj9JQ
+    ports:
+      - 8443:8443
+  memcached:
+    image: memcached:1.4-alpine
+    ports:
+      - 11311:11211
+  mongodb:
+    image: mongo:3.2
+    ports:
+      - 28017:27017
